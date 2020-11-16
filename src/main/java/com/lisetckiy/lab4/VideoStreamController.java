@@ -1,18 +1,33 @@
 package com.lisetckiy.lab4;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
 @RestController("/stream")
+@Slf4j
 public class VideoStreamController {
 
+
+
+
+    @PostMapping("/upload")
+    public void uploadStream(@RequestParam MultipartFile[] multipartFiles){
+        for(MultipartFile multipartFile:multipartFiles){
+            try {
+                InputStream inputStream = multipartFile.getInputStream();
+            } catch (IOException e) {
+                log.error(e.getMessage(), e);
+            }
+        }
+
+    }
 
     @GetMapping("/video")
     public StreamingResponseBody stream(){
