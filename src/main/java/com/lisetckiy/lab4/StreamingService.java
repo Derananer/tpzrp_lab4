@@ -1,7 +1,9 @@
 package com.lisetckiy.lab4;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.socket.BinaryMessage;
 import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 
@@ -15,6 +17,10 @@ import java.util.concurrent.TimeUnit;
 @Component
 @Slf4j
 public class StreamingService {
+
+
+    @Autowired
+    private FrameHandler frameHandler;
 
     private final Map<String, WebSocketSession> sessions = new ConcurrentHashMap<>();
     private final LinkedBlockingQueue<WebSocketMessage<?>> mainQueue = new LinkedBlockingQueue<>();
@@ -56,8 +62,10 @@ public class StreamingService {
         thread.start();
     }
 
-    void addMessage(WebSocketMessage<?> message) {
-        mainQueue.add(message);
+    void addMessage(BinaryMessage message) {
+        mainQueue.add(new BinaryMessage(frameHandler.convertAndConsume(message.getPayload())));
+//        new BinaryMessage()
+//        message.getPayload()
     }
 
 

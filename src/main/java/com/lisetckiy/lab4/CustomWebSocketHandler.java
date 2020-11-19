@@ -5,6 +5,7 @@ import org.springframework.web.socket.*;
 import org.springframework.web.socket.handler.AbstractWebSocketHandler;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
 
 @Slf4j
 public class CustomWebSocketHandler extends AbstractWebSocketHandler {

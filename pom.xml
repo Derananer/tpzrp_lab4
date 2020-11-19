@@ -38,7 +38,15 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
+
+        <!-- https://mvnrepository.com/artifact/org.openpnp/opencv -->
+        <dependency>
+            <groupId>org.openpnp</groupId>
+            <artifactId>opencv</artifactId>
+            <version>3.4.2-2</version>
+        </dependency>
+
+    </dependencies>
 
 	<build>
 		<plugins>
